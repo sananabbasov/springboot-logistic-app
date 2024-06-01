@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.List;
 
 
-// Test comment
+
 @Getter
 @Setter
 @Entity
