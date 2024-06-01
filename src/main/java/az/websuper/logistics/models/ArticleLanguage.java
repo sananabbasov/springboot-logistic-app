@@ -1,21 +1,25 @@
 package az.websuper.logistics.models;
 
-
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
+
+
 @Getter
 @Setter
 @Entity
-@Table(name = "category_languages")
-public class CategoryLanguage {
+@Table(name = "article_languages")
+public class ArticleLanguage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
+    private String title;
+    private String description;
+    private String seoUrl;
     private String langCode;
 
     @ManyToOne
-    private Category category;
+    private Article article;
 }

@@ -5,17 +5,19 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Setter
 @Entity
-@Table(name = "category_languages")
-public class CategoryLanguage {
+@Table(name = "abouts")
+public class About {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
-    private String langCode;
 
-    @ManyToOne
-    private Category category;
+
+    @OneToMany(mappedBy = "about")
+    private List<AboutLanguage> articleLanguages = new ArrayList<>();
 }

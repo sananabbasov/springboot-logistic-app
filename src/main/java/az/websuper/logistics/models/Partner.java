@@ -8,14 +8,12 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "category_languages")
-public class CategoryLanguage {
+@Table(name = "partners")
+public class Partner {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
-    private String langCode;
 
-    @ManyToOne
-    private Category category;
+    private String photoUrl;
+    private String websiteUrl;
 }
