@@ -13,7 +13,7 @@ public interface BannerLanguageService {
 
     void createBannerLanguage(List<BannerLanguageCreateDto> bannerLanguages, Banner banner);
     BannerDto getBannerByIdAndLangCode(String langCode);
-   List<BannerDto> getBannersByLang(String langCode);
+    List<BannerDto> getBannersByLang(String langCode);
 
     void updateBannerLanguage(Long id, BannerLanguageUpdateDto bannerLanguage);
 }
