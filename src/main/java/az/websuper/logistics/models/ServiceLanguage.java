@@ -15,7 +15,7 @@ public class ServiceLanguage {
     private Long id;
     private String title;
     private String langCode;
-
+    private String description;
 
     @ManyToOne
     private Service service;
