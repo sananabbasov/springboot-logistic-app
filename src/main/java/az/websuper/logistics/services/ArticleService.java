@@ -12,8 +12,8 @@ public interface ArticleService {
     ArticleCreateDto createArticle(ArticleCreateDto createArticle);
     void updateArticle(ArticleUpdateDto updateArticle);
     List<ArticleListDto> getRelatedArticlesByCategory(CategoryEnum categoryEnum, int size);
-    List<ArticleListDto> getHomeNews();
-    List<ArticleListDto> getHomeActivities();
+    List<ArticleListDto> getHomeNews(String langCode);
+    List<ArticleListDto> getHomeActivities(String langCode);
     PaginationResponse<ArticleListDto> getArticlesActivities(int pageNo);
     PaginationResponse<ArticleListDto>  getArticlesNews(int pageNo);
 

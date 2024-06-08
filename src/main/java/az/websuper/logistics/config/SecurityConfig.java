@@ -24,7 +24,6 @@ public class SecurityConfig {
             "/swagger-resources",
     };
 
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         http
