@@ -58,8 +58,11 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public List<ArticleListDto> getHomeActivities(String langCode) {
         List<Article> article = articleRepository.findAll();
-        List<ArticleListDto> result = article.stream().map(a -> modelMapper.map(a, ArticleListDto.class)).collect(Collectors.toList());
-        result.forEach(c-> c.setArticleLanguage(articleLanguageService.findByLang(langCode,c.getId())));
+        List<ArticleListDto> result = article.stream().map(a -> {
+            ArticleListDto list = modelMapper.map(a, ArticleListDto.class);
+            list.setTitle(a.getArticleLanguages().stream().filter(x->x.getLangCode().equals(langCode)).findFirst().get().getTitle());
+           return list;
+        }).collect(Collectors.toList());
         return result;
     }
 

@@ -7,6 +7,7 @@ import java.util.List;
 
 @Data
 public class ServiceCreateDto {
+    private Long serviceId;
     private String photoUrl;
     private Long categoryId;
     private List<ServiceLanguageCreateDto> serviceLanguages = new ArrayList<>();

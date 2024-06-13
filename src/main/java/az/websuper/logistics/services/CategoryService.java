@@ -6,6 +6,7 @@ import az.websuper.logistics.dtos.banner.BannerUpdateDto;
 import az.websuper.logistics.dtos.category.CategoryAddDto;
 import az.websuper.logistics.dtos.category.CategoryDto;
 import az.websuper.logistics.dtos.category.CategoryUpdateDto;
+import az.websuper.logistics.models.Category;
 
 import java.util.List;
 
@@ -15,4 +16,5 @@ public interface CategoryService {
     List<CategoryDto> getCategories(String langCode);
     CategoryUpdateDto getUpdate(Long id);
     CategoryUpdateDto getUpdateData(Long id, CategoryUpdateDto categoryUpdateDto);
+    Category findById(Long id);
 }

@@ -16,6 +16,6 @@ import java.util.Date;
 public class ArticleListDto {
     private Long id;
     private String photoUrl;
-    private ArticleLanguageDto articleLanguage;
+    private String title;
     private Date createdDate;
 }
