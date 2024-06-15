@@ -1,4 +1,4 @@
-name: CI Pipeline
+name: Deploy
 
 on:
   push:
@@ -9,20 +9,29 @@ on:
       - main
 
 jobs:
-  build:
-    runs-on: self-hosted
+  deploy:
+    runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v2
 
       - name: Set up Java
         uses: actions/setup-java@v2
         with:
+          distribution: 'temurin'
           java-version: '17'
+          java-package: jdk
 
-      - name: Build with Maven
-        run: mvn clean install
-
-      - name: Run configuration script
-        run: ./config.sh --url https://github.com/sananabbasov/springboot-logistic-app --token AI2NREAQWLP2RZHHOCV2C6TGNXNZM
+      - name: Deploy to server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            cd /home/${{ secrets.SSH_USERNAME }}/global-logistic
+            git pull origin main
+            ./mvnw clean install -DskipTests
+            cp target/*.jar /home/${{ secrets.SSH_USERNAME }}/global-logistic/publish/app.jar
+            pm2 restart backend-global-logistic --update-env
