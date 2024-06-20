@@ -10,7 +10,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
       - name: Checkout code
@@ -23,15 +23,3 @@ jobs:
           java-version: '17'
           java-package: jdk
 
-      - name: Deploy to server
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
-          key: ${{ secrets.SSH_KEY }}
-          script: |
-            cd /home/${{ secrets.SSH_USERNAME }}/global-logistic
-            git pull origin main
-            ./mvnw clean install -DskipTests
-            cp target/*.jar /home/${{ secrets.SSH_USERNAME }}/global-logistic/publish/app.jar
-            pm2 restart backend-global-logistic --update-env
