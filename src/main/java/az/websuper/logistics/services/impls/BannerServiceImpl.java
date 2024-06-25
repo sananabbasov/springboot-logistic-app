@@ -3,6 +3,7 @@ package az.websuper.logistics.services.impls;
 import az.websuper.logistics.dtos.banner.BannerCreateDto;
 import az.websuper.logistics.dtos.banner.BannerDto;
 import az.websuper.logistics.dtos.banner.BannerUpdateDto;
+import az.websuper.logistics.exceptions.ResourceNotFoundException;
 import az.websuper.logistics.models.Banner;
 import az.websuper.logistics.models.BannerLanguage;
 import az.websuper.logistics.repositories.BannerLanguageRepository;
@@ -55,7 +56,7 @@ public class BannerServiceImpl implements BannerService {
 
     @Override
     public BannerUpdateDto getUpdate(Long id) {
-        Banner findBanner = bannerRepository.findById(id).orElseThrow();
+        Banner findBanner = bannerRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Banner","banner id",id));
         BannerUpdateDto result = modelMapper.map(findBanner, BannerUpdateDto.class);
         return result;
     }

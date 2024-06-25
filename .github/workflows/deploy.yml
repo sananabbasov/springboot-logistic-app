@@ -10,19 +10,14 @@ on:
 
 jobs:
   deploy:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
-      - name: Set up Java
-        uses: actions/setup-java@v2
+      - name: Deploy to server
+        uses: appleboy/ssh-action@master
         with:
-          distribution: 'temurin'
-          java-version: '17'
-          java-package: jdk
-
-          
-      - name: Build with Maven
-        run: mvn clean install
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
