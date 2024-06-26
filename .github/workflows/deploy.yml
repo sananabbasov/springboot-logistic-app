@@ -29,7 +29,7 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.DROPLET_SSH_KEY }}
           script: |
-            cd /home/compar/springboot-logistic-app
+            cd /home/${{ secrets.SSH_USERNAME }}/springboot-logistic-app
             git pull origin main
             # ./mvnw clean package -DskipTests
             # sudo systemctl restart your-app.service
