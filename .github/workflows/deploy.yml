@@ -31,5 +31,5 @@ jobs:
           script: |
             cd /home/${{ secrets.SSH_USERNAME }}/springboot-logistic-app
             git pull origin main
-            ./mvnw clean package -DskipTests
-            sudo systemctl restart your-app.service
+            # ./mvnw clean package -DskipTests
+            # sudo systemctl restart your-app.service
