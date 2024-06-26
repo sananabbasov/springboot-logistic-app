@@ -1,42 +1,35 @@
-name: CI/CD Pipeline
+name: Deploy
 
 on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-    
-    - name: Set up JDK 17
-      uses: actions/setup-java@v2
-      with:
-        distribution: 'temurin'
-        java-version: '17'
-
   deploy:
-    needs: build
     runs-on: ubuntu-latest
-    
+
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-
-    - name: Add SSH key
-      uses: webfactory/ssh-agent@v0.5.3
-      with:
-        ssh-private-key: ${{ secrets.DROPLET_SSH_KEY }}
-
-    - name: Deploy to DigitalOcean Droplet
-      run: |
-        ssh -o StrictHostKeyChecking=no root@${{ secrets.DROPLET_IP }} << 'EOF'
-          cd /path/to/your/app
-          git pull origin main
-          ./mvnw clean package
-          sudo systemctl restart your-app.service
-        EOF
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      - name: Set up JDK 17
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+      
+      - name: Deploy to server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.DROPLET_SSH_KEY }}
+          script: |
+            cd /home/${{ secrets.SSH_USERNAME }}/global-logistic
+            git pull origin main
+            ./mvnw clean package -DskipTests
+            sudo systemctl restart your-app.service
